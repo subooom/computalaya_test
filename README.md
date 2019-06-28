@@ -1,4 +1,11 @@
-# sample-inventory
+# Things to do to get set up
+* Clone the repository.
+* Create a mysql database named 'rcm'
+* Setup `.env` file with the same settings and generate application key.
+* Run `cd/path/to/the/repo`
+* Run `composer install`
+* Run `php artisan migrate`
+* Now you can finally run `php artisan serv`
 
 ## Completed Things
 - [Done] I can see an **Add Item** button that takes me to a form where I can add various required fields.
