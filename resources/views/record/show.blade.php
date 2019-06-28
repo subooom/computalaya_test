@@ -139,7 +139,12 @@
                       <p>{{ucfirst($attr)}}: {{$value}}</p>
                     @endforeach
                     <a class="btn btn-info" href="/item/{{$item->id}}/edit">Edit</a>
-                    <a class="btn btn-danger" href="">Delete</a>
+
+                    <form action="{{route('item.destroy',[$item->id])}}" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                       </form>
                 </div>
             </div>
         </div>

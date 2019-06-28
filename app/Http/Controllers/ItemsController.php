@@ -49,7 +49,6 @@ class ItemsController extends Controller
         'brand' => 'required',
         'color' => 'required',
         'sku' => 'required',
-        'quantity' => 'required',
         'category' => 'required',
       ]);
 
@@ -75,8 +74,7 @@ class ItemsController extends Controller
     public function show($id)
     {
       $item = Item::find($id);
-
-      $item->decodedAttributes = $this->decodeAttributes($item->attributes);
+      if($item->attributes !== []) $item->decodedAttributes = $this->decodeAttributes($item->attributes);
 
       return view('record.show')
         ->with('item', $item);
@@ -84,7 +82,7 @@ class ItemsController extends Controller
 
     public function decodeAttributes($attributes)
     {
-      $decoded;
+      $decoded = [];
 
       foreach(json_decode($attributes, true) as $attr){
         $exploded = explode(',', $attr[0]);
