@@ -11,10 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ItemsController@index');
 
-Route::get('item/create', function () {
-    return view('record/create');
-});
+Route::resource('item', 'ItemsController');
+
+Route::resource('category', 'CategoryController');
