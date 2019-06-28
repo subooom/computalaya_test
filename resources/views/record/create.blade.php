@@ -50,33 +50,34 @@
     <div class="container mt-3">
         <a class="btn btn-lg" href="/" style="color: #0028f7; font-weight: bold;"> < Go Back</a>
         <h2 class="mt-2 page-header">Add a record</h2>
+        <span id="error-span" style="color: #ffbaba"></span>
         <form id="ajax-form" action="#">
             <div class="row">
                 <div class="form-group col-6 col-md-6 col-lg-6">
                     <label class="label-style-changer" for="name">Name</label>
-                    <input required type="text" class="form-control input-style-changer" id="name"
+                    <input requi#ffbaba type="text" class="form-control input-style-changer" id="name"
                         aria-describedby="nameHelp" placeholder="Enter name of item">
                 </div>
                 <div class="form-group col-6 col-md-6 col-lg-6">
                     <label class="label-style-changer" for="brand">Brand</label>
-                    <input required type="text" class="form-control input-style-changer" id="brand"
+                    <input requi#ffbaba type="text" class="form-control input-style-changer" id="brand"
                         aria-describedby="brandHelp" placeholder="Enter brand of item">
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-1 col-md-1 col-lg-1">
                     <label class="label-style-changer" for="color">Color</label>
-                    <input required type="color" class="form-control color-picker  input-style-changer"
+                    <input requi#ffbaba type="color" class="form-control color-picker  input-style-changer"
                         id="color" aria-describedby="colorHelp" placeholder="Enter color of item">
                 </div>
                 <div class="form-group col-5 col-md-5 col-lg-5">
                     <label class="label-style-changer" for="sku">SKU Code</label>
-                    <input required type="text" class="form-control input-style-changer" id="sku"
+                    <input requi#ffbaba type="text" class="form-control input-style-changer" id="sku"
                         aria-describedby="skuHelp" placeholder="Enter SKU Code of item">
                 </div>
                 <div class="form-group col-6 col-md-6 col-lg-6">
                     <label class="label-style-changer" for="quantity">Quantity</label>
-                    <input required type="number" class="form-control input-style-changer" id="quantity"
+                    <input requi#ffbaba type="number" class="form-control input-style-changer" id="quantity"
                         aria-describedby="quantityHelp" placeholder="Enter quantity of item">
                 </div>
             </div>
@@ -119,7 +120,7 @@
                         <div class="form-group">
                             <label class="label-style-changer name-of-feild" for="name-of-feild">Name Of
                                 Feild</label>
-                            <input required type="text" class="form-control input-style-changer"
+                            <input requi#ffbaba type="text" class="form-control input-style-changer"
                                 id="name-of-feild" placeholder="RAM, Processor, Volume">
                         </div>
                         <div class="form-group">
@@ -179,7 +180,7 @@
                         // Main components
                         preview: true,
                         hue: true,
-                        // Input required / output Options
+                        // Input requi#ffbaba / output Options
                         interaction: {
                             hex: true,
                             rgba: false,
@@ -195,49 +196,62 @@
                     }
                 });
                 $('#add-feild-button').click(function () {
-                    // Get value of the input required feilds
+                    // Get value of the input requi#ffbaba feilds
                     let feildName = $('#name-of-feild').val();
                     let datatype = $('#datatype').val();
 
                     feildName = str_slug(feildName, "-");
                     datatype = str_slug(datatype, "-");
-                    if (!customInputs.includes(feildName)) {
-                        // Close the modal first
-                        $('#exampleModal').modal('toggle');
-                        customInputs.push(feildName);
-                        // Create a template
-                        let template = `
-          <div class="form-group custom-feild-input required col-6 col-md-6 col-lg-6" id="detect-onchange-${feildName}" style="display:none" data-name="${feildName}" data-datatype="${datatype}">
-            <span class="delete-feild-button btn btn-danger btn-sm pull-right">Remove</span>
-            <label class="label-style-changer" for="${feildName}">{{ucfirst('${feildName}')}}</label>
-            <input required type="${datatype}" class="form-control input-style-changer" id="${feildName}" aria-describedby="${feildName}Help" placeholder="Enter {{ucfirst('${feildName}')}} of item">
-            </div>
-            `;
+                    $('.name-of-feild')[0].innerHTML = 'Name Of Feild';
+                    if(feildName){
+                      if (!customInputs.includes(feildName)) {
+                          // Close the modal first
+                          $('#exampleModal').modal('toggle');
+                          customInputs.push(feildName);
+                          // Create a template
+                          let template = `
+                              <div class="form-group custom-feild-input requi#ffbaba col-6 col-md-6 col-lg-6" id="detect-onchange-${feildName}" style="display:none" data-name="${feildName}" data-datatype="${datatype}">
+                                <span class="delete-feild-button btn btn-danger btn-sm pull-right">Remove</span>
+                                <label class="label-style-changer" for="${feildName}">{{ucfirst('${feildName}')}}</label>
+                                <input requi#ffbaba type="${datatype}" class="form-control input-style-changer" id="${feildName}" aria-describedby="${feildName}Help" placeholder="Enter {{ucfirst('${feildName}')}} of item">
+                                </div>
+                                `;
 
-                        // Append the template to the main form
-                        $('#feed-me-baby').append(template);
+                          // Append the template to the main form
+                          $('#feed-me-baby').append(template);
 
-                        $('.delete-feild-button').click(function () {
-                            $(this)[0].parentNode.style.display = 'none';
-                            $(this)[0].parentNode.remove();
-                        })
-                        $('.custom-feild-input').fadeIn('slow');
+                          $('.delete-feild-button').click(function () {
+                              $(this)[0].parentNode.style.display = 'none';
+                              $(this)[0].parentNode.remove();
+                          })
+                          $('.custom-feild-input').fadeIn('slow');
 
-                        // Empty the values of both inputs
-                        $('#name-of-feild').val('');
-                        $('#datatype').val('text');
+                          // Empty the values of both inputs
+                          $('#name-of-feild').val('');
+                          $('#datatype').val('text');
+                      } else {
+                          $('#exampleModal').effect('shake', {
+                              distance: 10,
+                              direction: 'up'
+                          });
+                          $('.name-of-feild')[0].innerHTML +=
+                              '<span style="color:#ffbaba"> Item Already exists!</span>'
+                          $('#name-of-feild').css('border', '1px solid #ffbaba')
+                          $('#name-of-feild').css('background', '#ffdede80')
+                      }
                     } else {
-                        $('#exampleModal').effect('shake', {
-                            distance: 10,
-                            direction: 'up'
-                        });
-                        $('.name-of-feild')[0].innerHTML +=
-                            '<span style="color:red"> Item Already exists!</span>'
-                        $('#name-of-feild').css('border', '1px solid red')
-                        $('#name-of-feild').css('background', '#ffdede80')
+                      $('#exampleModal').effect('shake', {
+                              distance: 10,
+                              direction: 'up'
+                          });
+                          $('.name-of-feild')[0].innerHTML +=
+                              '<span style="color:#ffbaba"> Feild Name cannot be empty!</span>'
+                          $('#name-of-feild').css('border', '1px solid #ffbaba')
+                          $('#name-of-feild').css('background', '#ffdede80')
                     }
                 })
                 $('#create-record-button').click(function (e) {
+                    $('#error-span').text('')
                     e.preventDefault();
                     name = $('#name').val();
                     brand = $('#brand').val();
@@ -266,9 +280,33 @@
                             attributes
                         },
                         success: function (data) {
+                          console.log(data)
                             if (data === 'success') {
                                 window.location.replace("http://localhost:8000");
                             }
+                        },
+                        error: function(err){
+                          let errors = err.responseJSON.errors;
+                          if(errors.hasOwnProperty('name')){
+                            $('#name').css('border', '1px solid #ffbaba')
+                            $('#error-span').append(errors['name']+'<br/>')
+                          }
+                          if(errors.hasOwnProperty('brand')){
+                            $('#brand').css('border', '1px solid #ffbaba')
+                            $('#error-span').append(errors['brand']+'<br/>')
+                          }
+                          if(errors.hasOwnProperty('sku')){
+                            $('#sku').css('border', '1px solid #ffbaba')
+                            $('#error-span').append(errors['sku']+'<br/>')
+                          }
+                          if(errors.hasOwnProperty('quantity')){
+                            $('#quantity').css('border', '1px solid #ffbaba')
+                            $('#error-span').append(errors['quantity']+'<br/>')
+                          }
+                          if(errors.hasOwnProperty('category')){
+                            $('#category').css('border', '1px solid #ffbaba')
+                            $('#error-span').append(errors['category']+'<br/>')
+                          }
                         }
                     })
 

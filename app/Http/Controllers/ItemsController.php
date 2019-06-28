@@ -44,6 +44,15 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
+      $validatedData = $request->validate([
+        'name' => 'required|unique:items|max:255',
+        'brand' => 'required',
+        'color' => 'required',
+        'sku' => 'required',
+        'quantity' => 'required',
+        'category' => 'required',
+      ]);
+
       $item = new Item();
 
       $item->name = $request->get('name');
