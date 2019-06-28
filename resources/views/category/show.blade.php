@@ -64,7 +64,7 @@
 
         .records {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr ;
             grid-gap: 20px;
         }
 
@@ -119,36 +119,23 @@
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid mb-5">
         <div class="top-right links">
             <a href="/">Go Home</a>
         </div>
 
         <div class=" container">
             <div class="title m-b-md">
-                Viewing Categories
+                Viewing Category: {{$category->name}}
             </div>
             <div class="records">
-                <a class="add-item" href="/category/create">
-                    + add new category
-                </a>
-                @if ($categories)
-                @foreach ($categories as $item)
-                <div class="item">
-                    <p class="category">{{$item->name}}</p>
-                    <h3>{{$item->description}}</h3>
-                    <p>There are {{$item->count}} items in this category.</p>
-                    <a class="btn btn-primary" href="/category/{{$item->id}}">View</a>
-                    @if ($item->count == 0)
-                      <form action="{{route('category.destroy',[$item->id])}}" method="POST">
-                        @method('DELETE')
-                        @csrf
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                       </form>
-                    @endif
+                <div class="{{$category->name}}">
+                    <p class="category">{{$category->name}}</p>
+                    <p>Description: {{$category->description}}</p>
+                    <p>Created At: {{$category->created_at}}</p>
+                    <a class="btn btn-info" href="/category/{{$category->id}}/edit">Edit</a>
+                    <a class="btn btn-danger" href="">Delete</a>
                 </div>
-                @endforeach
-                @endif
             </div>
         </div>
     </div>

@@ -152,7 +152,12 @@
                     <p class="color" style="background:{{$item->color}}">{{$item->color}}</p>
                     <p>{{$item->sku}}</p>
                     <a class="btn btn-primary" href="/item/{{$item->id}}">View</a>
-                    <a class="btn btn-danger" href="">Delete</a>
+
+                    <form action="{{route('item.destroy',[$item->id])}}" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                       </form>
                 </div>
                 @endforeach
                 @endif

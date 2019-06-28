@@ -65,7 +65,10 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Category::find($id);
+
+        return view('category.show')
+          ->with('category', $category);
     }
 
     /**
@@ -99,6 +102,10 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $category = Category::findOrFail($id);
+
+      $category->delete();
+
+      return redirect('/category');
     }
 }
