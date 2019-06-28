@@ -167,7 +167,7 @@
             }
             $(document).ready(function () {
                 let name, brand, color, sku, quantity, category;
-                let attributes = "";
+                let attributes = [];
 
                 let customInputs = [];
 
@@ -246,12 +246,13 @@
                     category = $('#category').val();
                     Object.keys($('.custom-feild-input input')).forEach(function (key) {
                         if (!isNaN(key)) {
-                            attributes +=
-                                `{ '${customInputs[key]}' : '${$('.custom-feild-input input')[key].value}'},`;
+                            attributes.push([
+                              `${customInputs[key]}, ${$('.custom-feild-input input')[key].value}`
+                            ]);
                         }
                     });
 
-                    attributes = "{" + attributes + "}";
+                    attributes = JSON.stringify(attributes);
 
                     $.post({
                         type: "POST",

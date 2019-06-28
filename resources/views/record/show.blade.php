@@ -64,7 +64,7 @@
 
         .records {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr ;
             grid-gap: 20px;
         }
 
@@ -121,103 +121,29 @@
 <body>
     <div class="container-fluid mb-5">
         <div class="top-right links">
-            <a href="/category">View Categories</a>
+            <a href="/">Go Home</a>
         </div>
 
         <div class=" container">
             <div class="title m-b-md">
-                Record Management System
+                Viewing Item: {{$item->name}}
             </div>
-            <div class="dropdown">
-                <button class="btn btn-light dropdown-toggle mb-5" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Sort By Category
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">All</a>
-                  @foreach ($categories as $item)
-                    <a class="dropdown-item" href="#">{{$item->name}}</a>
-                  @endforeach
-                </div>
-              </div>
             <div class="records">
-                <a class="add-item" href="/item/create">
-                    + add new item
-                </a>
-                @if ($items)
-                @foreach ($items as $item)
                 <div class="item all {{$item->category_slug}}">
                     <p class="category">{{$item->category_slug}}</p>
                     <h3>{{$item->name}}</h3>
-                    <p>{{$item->brand}}</p>
+                    <p>Brand: {{$item->brand}}</p>
                     <p class="color" style="background:{{$item->color}}">{{$item->color}}</p>
-                    <p>{{$item->sku}}</p>
-                    <a class="btn btn-primary" href="/item/{{$item->id}}">View</a>
+                    <p>SKU: {{$item->sku}}</p>
+                    @foreach ($item->decodedAttributes as $attr => $value)
+                      <p>{{ucfirst($attr)}}: {{$value}}</p>
+                    @endforeach
+                    <a class="btn btn-info" href="/item/{{$item->id}}/edit">Edit</a>
                     <a class="btn btn-danger" href="">Delete</a>
                 </div>
-                @endforeach
-                @endif
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
-    <script>
-        function str_slug(text, delimeter)
-        {
-          return text
-          .toLowerCase()
-          .replace(/ /g,delimeter)
-          .replace(/[^\w-]+/g,'')
-      ;
-        }
-        function invertColor(hex) {
-            if (hex.indexOf('#') === 0) {
-                hex = hex.slice(1);
-            }
-            // convert 3-digit hex to 6-digits.
-            if (hex.length === 3) {
-                hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-            }
-            if (hex.length !== 6) {
-                throw new Error('Invalid HEX color.');
-            }
-            // invert color components
-            var r = (255 - parseInt(hex.slice(0, 2), 16)).toString(16),
-                g = (255 - parseInt(hex.slice(2, 4), 16)).toString(16),
-                b = (255 - parseInt(hex.slice(4, 6), 16)).toString(16);
-            // pad each with zeros and return
-            return '#' + padZero(r) + padZero(g) + padZero(b);
-        }
-
-        function padZero(str, len) {
-            len = len || 2;
-            var zeros = new Array(len).join('0');
-            return (zeros + str).slice(-len);
-        }
-
-        $(document).ready(function () {
-            let colors = document.querySelectorAll('.color')
-            for (let color of colors) {
-                color.style.color = invertColor(color.innerHTML)
-                color.style.padding = '4px'
-            }
-            $('.dropdown-item').click(function(e){
-              e.preventDefault();
-              let needed = str_slug(e.target.innerHTML, '-');
-              $('#dropdownMenuButton').text(e.target.innerHTML);
-              $('.item').fadeOut();
-              $('.'+needed).fadeIn();
-            })
-        })
-
-    </script>
 </body>
 
 </html>

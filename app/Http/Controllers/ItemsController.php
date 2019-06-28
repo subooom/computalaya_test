@@ -65,7 +65,24 @@ class ItemsController extends Controller
      */
     public function show($id)
     {
-        //
+      $item = Item::find($id);
+
+      $item->decodedAttributes = $this->decodeAttributes($item->attributes);
+
+      return view('record.show')
+        ->with('item', $item);
+    }
+
+    public function decodeAttributes($attributes)
+    {
+      $decoded;
+
+      foreach(json_decode($attributes, true) as $attr){
+        $exploded = explode(',', $attr[0]);
+        $decoded[$exploded[0]] = $exploded[1];
+      }
+
+      return $decoded;
     }
 
     /**
