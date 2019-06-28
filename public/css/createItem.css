@@ -1,0 +1,31 @@
+* {
+  letter-spacing: 2px;
+}
+
+body {
+  background: azure;
+  background-size: cover;
+}
+
+.page-header {
+  color: #00f078
+}
+
+.label-style-changer {
+  color: #2ed4d2
+}
+
+.input-style-changer {
+  border: 1px solid #2ed4d2;
+  background: azure;
+}
+
+.btn-primary-style-changer {
+  background-color: #00a4ffc9;
+  border-color: #00a4ffc9;
+}
+
+.btn-success-style-changer {
+  background-color: #00f078;
+  border-color: #00f078;
+}
