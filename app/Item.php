@@ -8,6 +8,11 @@ class Item extends Model
 {
   public function getCategoryName($id)
   {
-    return Category::find($id)->pluck('name');
+    return Category::find($id)->name;
+  }
+
+  public function category()
+  {
+    return $this->belongsTo(Category::class);
   }
 }

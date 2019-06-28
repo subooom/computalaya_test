@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Item;
+use App\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -13,7 +15,16 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+      $categories = Category::all();
+
+      foreach($categories as $category)
+      {
+        $category->count = count(Item::where('category_id', $category->id)->with('category')->withCount('category')->get());
+
+      }
+
+      return view('category.index')
+        ->with('categories', $categories);
     }
 
     /**
@@ -34,7 +45,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-      dd($request->all());
+      $category = new Category();
+
+      $category->name = $request->name;
+
+      $category->description = $request->description;
+
+      $category->save();
+
+      return redirect('/');
+
     }
 
     /**

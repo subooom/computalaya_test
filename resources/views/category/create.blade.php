@@ -48,11 +48,16 @@
         <h2 class="mt-2 page-header">Add a Category</h2>
         <form id="ajax-form" method="POST" action="/category">
           @csrf
-            <div class="form-group">
-                <label class="label-style-changer" for="name">Name</label>
-                <input required type="text" name="name" class="form-control input-style-changer" id="name" aria-describedby="nameHelp"
-                    placeholder="Enter name of category">
-            </div>
+          <div class="form-group">
+              <label class="label-style-changer" for="name">Name</label>
+              <input required type="text" name="name" class="form-control input-style-changer" aria-describedby="nameHelp"
+                  placeholder="Enter name of category">
+          </div>
+          <div class="form-group">
+              <label class="label-style-changer" for="name">Description</label>
+              <textarea name="description" class="form-control input-style-changer" aria-describedby="descriptionHelp"
+                  placeholder="Enter description of the category"></textarea>
+          </div>
 
             <button type="submit" class="btn btn-success btn-success-style-changer mb-4" id="create-record-button">Create Category</button>
         </form>

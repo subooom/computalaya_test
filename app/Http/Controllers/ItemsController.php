@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\Category;
 use Illuminate\Http\Request;
 
 class ItemsController extends Controller
@@ -15,9 +16,11 @@ class ItemsController extends Controller
     public function index()
     {
       $items = Item::all();
+      $categories = Category::all();
 
       return view('welcome')
-        ->with('items', $items);
+        ->with('items', $items)
+        ->with('categories', $categories);
     }
 
     /**
@@ -27,7 +30,10 @@ class ItemsController extends Controller
      */
     public function create()
     {
-      return view('record.create');
+      $categories = Category::all();
+
+      return view('record.create')
+        ->with('categories', $categories);
     }
 
     /**
@@ -45,11 +51,10 @@ class ItemsController extends Controller
       $item->color = $request->get('color');
       $item->sku = $request->get('sku');
       $item->category_id = $request->get('category');
-      $item->category_slug = $item->getCategoryName($item->category);
+      $item->category_slug = str_slug($item->getCategoryName($item->category_id), '-');
       $item->attributes = $request->get('attributes');
-      dd($item->category_slug);
       $item->save();
-      return response($request->all());
+      return response('success');
     }
 
     /**
